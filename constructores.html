@@ -1,0 +1,20 @@
+<script type="text/javascript">
+
+
+function Rabbit( type ){
+this.type= type;
+}
+
+
+var killerRabbit= new Rabbit("killer");
+var blackRabbit= new Rabbit("Black");
+
+Rabbit.prototype.speak= function( line){
+console.log( this.type+" rabbit says "+line );
+};
+
+
+ blackRabbit.speak("brrrr");
+
+console.log( Object.getPrototypeOf(  Rabbit) );
+</script>

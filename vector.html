@@ -1,0 +1,43 @@
+<script type="text/javascript">
+ 
+ function Vector( x,  y){
+     this.x=   x;
+     this.y= y;
+     
+
+ }
+ Vector.prototype.plus= function( OBJ2){
+     var sumax= Math.abs( this.x + OBJ2.x );
+     var sumay= Math.abs( this.y + OBJ2.y );
+     var vect= new Vector(sumax, sumay);
+     return vect;
+ };
+
+
+ Vector.prototype.minus= function( OBJ2 ){
+     var difx= Math.abs(  this.x - OBJ2.x) ;
+     var dify= Math.abs( this.y - OBJ2.y );
+     var vect= new Vector( difx, dify);
+     return vect;
+ };
+ Object.defineProperty(  Vector.prototype, "Distancia", 
+ {get: function(){ 
+    var cateto_A= this.x; var cateto_B= this.y;
+    var hipote=  Math.sqrt( (cateto_A * cateto_A) +  (cateto_B * cateto_B) );
+    return hipote;
+       }    })
+ 
+
+
+
+ var vector1= new Vector( 10,10);
+ var vector2= new Vector(5,2);
+
+console.log("Distancia de vector 1 desde 0,0 ", vector1.Distancia);
+
+var suma= vector1.plus(  vector2 );
+console.log(" suma ", suma );
+
+var difere= vector1.minus(vector2);
+console.log(" diferencia ", difere);
+</script>

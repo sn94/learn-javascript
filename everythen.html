@@ -1,0 +1,27 @@
+<script type="text/javascript">
+
+var parts= ['mouse', 'keyboard', 'display', 'printer', 'speaker']
+
+var everyCase= parts.every(function(cad, indice, string_arr){
+if( cad.length  >=7){
+    console.log( cad + " , ");
+    return true;
+}else{
+    console.log("Se sale cuando cad es "+cad+" en pos. "+ indice );
+    return false;
+}
+
+});
+
+var someCase= parts.some(function(cad, indice, string_arr){
+if( cad.length  >=7){
+    console.log(cad + " , Verdadero" );
+    return true;
+}
+return false;
+});
+
+
+console.log( someCase );
+
+</script>

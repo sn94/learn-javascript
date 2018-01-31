@@ -1,0 +1,15 @@
+<script type="text/javascript">
+
+
+var ProtoRabbit= {
+speak: function(line){
+    console.log(" The "+ this.type+" rabbit says "+line);
+}
+};
+
+var killerRabbit= Object.create( ProtoRabbit );
+killerRabbit.type="killer";
+killerRabbit.speak("BANG!");
+ 
+
+</script>

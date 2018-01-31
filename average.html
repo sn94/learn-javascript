@@ -1,0 +1,39 @@
+<script>
+var ancestry= 
+[
+{name: " Emma de Milliano ", sex: "f",
+born: 1876 , died: 1956 ,
+father: " Petrus de Milliano " ,
+mother: " Sophia van Damme "} ,
+{name: " Carolus Haverbeke " , sex: "m",
+born: 1832 , died: 1905 ,
+father: " Carel Haverbeke " ,
+mother: " Maria van Brussel "} 
+];
+
+function average ( arraay ) {
+function plus (a , b ) { return a + b; }
+
+return arraay.reduce( plus ) / arraay.length ;
+}
+
+function age ( p ) { return p.died - p.born ; }
+function male ( p ) { return p . sex == " m "; }
+function female ( p ) { return p. sex == "f "; }
+
+
+//console.log ( average ( ancestry.filter( male ). map ( age )));
+var nuevaLista= ancestry.filter( function(ele){
+    return ele.sex == "f";
+});
+
+var aniodie= nuevaLista.map(function( ob ){
+return ob.born - ob.died;
+});
+
+for( var a=0; a< aniodie.length; a++){
+    console.log(    aniodie[a] );
+}
+
+
+</script>

@@ -1,0 +1,25 @@
+<script type="text/javascript">
+
+Object.defineProperty( Object.prototype,  "hiddenNonsense", { enumerable: false,  value: "hi" }  );//define una propiedad no enumerable
+ var map = {};//objeto vacio
+
+function storePhi ( event , phi ) {
+map [ event ] = phi ;// asignacion de valor phi a la nueva propiedad event
+}
+
+
+storePhi (" pizza " , 0.069) ;// llamada a crear una nueva propiedad
+storePhi (" touched tree " , -0.081) ;
+
+
+// Object.prototype.nonsense = " hi "; al declararse asi la propiedad es enumerable
+
+for ( var name in map )
+console.log( name ) ;/** solo se itera propiedades enumerables **/
+
+console.log("hiddenNonsense" in map ) ;/** Esta propiedad se encuentra en map pero no es enumerable **/
+
+console.log("El prototipo tiene toString", "toString" in map ) ;/** Esto es true pues la propiedad existe en Object.prototype **/
+
+console.log("Map tiene un metodo toString", map.hasOwnProperty("toString") );/** Esto es falso pues ahora se verifica si existe la propiedad solo en el contexto de map **/
+</script>

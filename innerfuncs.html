@@ -1,0 +1,29 @@
+<script type="text/javascript">
+  
+var dias= ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
+
+function Dias( arg){
+
+this.x=[];
+
+  arg.forEach( function( elemento, indice){
+    this.x.push( dias[indice] );
+});
+
+for(var a=0; a<  this.x.length; a++)
+    console.log(  this.x[a] );
+
+}
+
+
+
+
+Dias.prototype.mostrar= function(){
+
+
+};
+
+var dia= Dias( [2,3,4]);
+
+
+</script>

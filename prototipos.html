@@ -1,0 +1,26 @@
+<script type="text/javascript">
+
+console.log(  Array.prototype == Object.getPrototypeOf(  []  ) );// El prototipo de un array es igual a Array.prototype
+console.log(  Function.prototype == Object.getPrototypeOf(  isNaN  )  );// El prototipo de una funcion es igual a Function.prototype
+
+function persona( ci, nom, ape){
+this.ci= ci;
+this.nombre= nom;
+this.apellido= ape;
+}
+
+function a_string(){// Este metodo sobreescribe el metodo estandar toString del prototipo
+console.log( this.nombre, " ci ", this.ci );
+}
+
+/** Las nuevas propiedades y metodos deben definirse a traves del nombre_de_constructor.prototype.nuevo_metodo_o_propiedad**/
+persona.prototype.toString= a_string;
+persona.prototype.sexo= "Femenino";
+persona.prototype.genero= function(){  console.log( "Es ", ( this.sexo=="Femenino")?"mujer":"hombre" );  };
+persona.prototype.nacionalidad= "Paraguaya";
+
+var yo= new persona("4747132","Sonia","Toledo");
+yo.toString();// Llamada al metodo toString propio del objeto persona y no del prototipo
+yo.genero();
+console.log(  yo.nacionalidad );
+</script>

@@ -1,0 +1,39 @@
+<script type="text/javascript">
+
+var mountains= [
+{nombre: "Kilimanjaro", altura: 5895, pais: "Tanzania"},
+{ nombre: "Everest" , altura:  8848, pais:  "Nepal" },
+{nombre: "Mount Fuji" , altura: 3776, pais: "Japan"},
+{nombre: "Mont Blanc" , altura: 4808, pais:  "Italy / France"},
+{nombre:  "Vaalserberg"  , altura: 323 , pais: "Netherlands" },
+{nombre:  "Denali", altura: 6168 , pais:  "United States"},
+{nombre: "Popocatepetl" , altura:  5465, pais: "Mexico" }
+];
+
+function rowHeights ( rows ) {
+return rows.map( function ( row ) {
+return row.reduce( function ( max , cell ) {
+return Math.max( max , cell.minHeight() );
+}, 0) ;
+}) ;
+}
+function colWidths ( rows ) {
+return rows [0]. map ( function (_ , i ) {
+return rows . reduce ( function ( max , row ) {
+return Math . max ( max , row [ i ]. minWidth () );
+}, 0) ;
+}) ;
+}
+
+/** Sintaxis lambda **/
+var callbackConcat= ( acum, actual ) => acum * actual ;
+
+// Callback (  valorAcumulado, valor actual, indice actual, array )
+var num = parseInt(  prompt("Elige un numero " )  ); 
+var arr= range(1, num );
+var resul= arr.reduce(  callbackConcat);
+console.log("Factorial de "+num +"  "+ resul );
+
+
+
+</script>

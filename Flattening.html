@@ -1,0 +1,61 @@
+<html>
+
+<body>
+
+
+</body>
+
+
+    <script type="text/javascript">
+        
+        //Use the reduce method in combination with the concat method to “flatten”
+        //an array of arrays into a single array that has all the elements of the input
+        //arrays 
+        
+        function concat(){
+            var re=""; 
+            if( typeof( arguments[0])  == "number" )
+            re=0;
+            // verificar tipo
+            
+
+            for( var t=0; t<arguments.length; t++){
+                if( typeof( arguments[0])  != "number" )
+                re= re+ arguments[t] +", " ;
+                else
+                re= re+ arguments[t];
+            }  return re;
+        }
+
+
+        function flattening(){ 
+            var nuevo=[];
+
+            for( var t=0; t<arguments.length; t++){
+            var temp=  arguments[t]; console.log(" tip ", typeof( temp) );
+            if( typeof(temp) == "number"){
+            nuevo= concat.apply( null,  arguments );
+            break;
+            }
+            else
+            nuevo.push(  concat.apply( null,  temp )   );
+            }  return nuevo;
+        }
+
+
+        var paises=
+        [
+            ['Paraguay', 'Argentina', 'Brasil','Uruguay'],
+            ['Italia', 'Portugal', 'Francia', 'Polonia'],
+            ['Japon', 'China', 'Corea','Afganistan']
+        ]; 
+        var years= [ 1994, 2010, 1700, 1825, 1945];
+
+        var matrix=[ [4,4,4] [10,10,10] ];
+
+        
+        
+        console.log(   flattening.apply(null,  matrix )   );
+        
+        </script>
+</html>

@@ -1,0 +1,18 @@
+<script type="text/javascript">
+ var persona={
+     nombre: "xx", apellido: "xx"
+ };
+
+ var trabajador= Object.create( persona );
+ trabajador['sueldo']=0;
+ for(var r in persona){
+     console.log(r);
+ }
+
+console.log("propiedades de trabajador");
+ for(var r in trabajador){
+     console.log(r);
+ }
+
+ 
+</script>

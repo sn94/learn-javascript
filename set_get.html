@@ -1,0 +1,56 @@
+<script type="text/javascript">
+
+function persona(){
+}
+
+// indicando solo el ident. de constructor, omitiendo el .prototype
+//creando propiedades del objeto
+Object.defineProperty(  persona, "nombre", {enumerable: true, value:"****"});
+Object.defineProperty(  persona, "apellido", {enumerable: true, value:"****"});
+Object.defineProperty(  persona , "ciudad", {enumerable: true, value:"****"});
+Object.defineProperty( persona, "sexo",  {enumerable:true, value:"x"});
+// Definiendo propiedades funciones para getter setter se debe indicar el constructor con prototipo
+Object.defineProperty( persona.prototype, "Sexo", 
+{   get: function(){  return (this.sexo=="F")? "Mujer": "Hombre";   },
+    set: function( v ){ this.sexo= v;}   }  );
+Object.defineProperty(persona.prototype, "Fullname",
+ {  get: function(){ return this.nombre+" "+this.apellido ;}   } );
+
+
+var juanito= new persona();
+juanito.nombre= "JUan"; juanito.apellido= "De La Mancha";
+juanito.ciudad= "Madrid";
+juanito.Sexo="M";
+//Creando una nueva propiedad
+juanito['direccion']="lomas";
+//Creando una propiedad en el prototipo
+persona.prototype.anios= 42;
+//creando una propiedad no enumerable para el objeto
+Object.defineProperty( persona, "edad", {enumerable: false, value:"nada"} );
+
+
+console.log("Nombre completo", juanito.Fullname, " es ", juanito.Sexo );
+
+
+
+
+console.log("listando las propiedades enumerables");
+console.log("Obs: se listan las propiedades del objeto cuyo valor ha sido asignado");
+for( var it in juanito){    
+     console.log( "Propia :  ", juanito.hasOwnProperty( it )   );
+    console.log(  it  ," : ", juanito[it]);
+}
+console.log("listando las propiedades no enumerables del obj." );
+for( var ele in  Object.keys( juanito  )  ){
+    console.log( ele  ," : ", juanito[ ele]);
+}
+
+
+console.log("listando las propiedades del prototipo",  Object.getPrototypeOf( juanito )  );
+for( var ele in Object.getPrototypeOf( juanito ) ){
+    console.log( ele  ," : ");
+}
+
+
+ 
+</script>

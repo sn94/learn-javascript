@@ -1,0 +1,16 @@
+<script type="text/javascript">
+
+console.log(  Array.prototype == Object.getPrototypeOf(  []  ) );// El prototipo de un array es igual a Array.prototype
+console.log(  Function.prototype == Object.getPrototypeOf(  isNaN  )  );// El prototipo de una funcion es igual a Function.prototype
+
+var persona={
+ci: "4747132",
+nombre: "Sonia",
+apellido: "Toledo",
+ficha:function(){ console.log( this.nombre, this.apellido, this.ci ); }
+}
+
+var otro= Object.create(  persona );
+otro.nombre= "Makoto";
+otro.ficha(); 
+</script>

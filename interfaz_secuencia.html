@@ -1,0 +1,63 @@
+<script type="text/javascript">
+  
+function ArraySeq( arreglo ){
+this.arreglo= arreglo;
+this.posicion= 0;
+this.actual= -1;
+}
+
+
+function RangeSeq( desde, hasta ){
+    this.from= desde;
+    this.to= hasta;
+    this.posicion= 0;
+    this.actual= desde;
+}
+
+
+ArraySeq.prototype.actual= function(){  
+return this.actual;
+};
+
+ArraySeq.prototype.siguiente= function(){
+if( this.posicion > (this.arreglo.length-1) ){ return false;}
+else{  this.actual=  this.arreglo[ this.posicion ];  this.posicion++; return true; }
+  
+};
+
+
+
+
+
+RangeSeq.prototype.actual= function(){  return this.actual;  };
+
+RangeSeq.prototype.siguiente= function(){
+    if( this.actual <  this.to ){
+        if( this.posicion > 0) this.actual= this.actual+1;
+        this.posicion++;
+        return true;
+    }
+     return false;
+};
+
+ 
+  
+/** PUede recibir un arrayseq o un rangeseq **/
+function fiveLog( secuencia ){
+var veces = 1;
+for( var a= 0;  true ; a++  ){
+if( !secuencia.siguiente())
+break;
+
+console.log( secuencia.actual,  " en  posicion", secuencia.posicion);  }
+
+}
+
+
+var arrayseq1= new ArraySeq( [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] );
+var rangeseq1= new RangeSeq(7,9);
+
+fiveLog( arrayseq1 );
+console.log("Utilizando rangeseq");
+fiveLog( rangeseq1 );
+</script>

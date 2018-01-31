@@ -1,0 +1,16 @@
+<script type="text/javascript">
+
+var arbol= Object.create( null ); //El argumento no es ningun prototipo, se crea el objeto sin prototipo
+Object.prototype.hojas= 45;
+/*var arbol= {
+altura: 98.0,  especie: "roble"
+};*/
+
+arbol['altura']= 98.05;
+arbol['especie']= "Roble";
+
+for( var it in arbol)
+console.log( it );
+
+
+</script>
