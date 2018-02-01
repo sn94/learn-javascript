@@ -1,0 +1,41 @@
+<script type="text/javascript">
+
+"use strict"
+
+function MultiplicatorUnitFailure(){
+this.message="invalid args!";
+}
+
+
+MultiplicatorUnitFailure.prototype= Object.create( Error.prototype  );
+MultiplicatorUnitFailure.prototype.name= "Multiplicator Unit Failure ";
+
+
+ function primitiveMultiply( a, b){
+
+if( !isNaN(a)  && !isNaN(b)){
+return a*b;
+}
+else{
+  return new MultiplicatorUnitFailure();
+}
+ }
+
+
+for(;;){
+var arg1= prompt("Primer argumento ","");
+var arg2= prompt("Segundo argumento ","");
+try{
+var resultado= primitiveMultiply( arg1, arg2 );
+console.log( resultado ); break;
+}
+catch(e){
+if( e instanceof MultiplicatorUnitFailure)
+console.log("Argumentos no validos intente de nuevo");
+throw e
+}
+
+}
+  
+  </script>
+  

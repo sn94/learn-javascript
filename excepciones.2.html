@@ -1,0 +1,38 @@
+<script type="text/javascript">
+
+"use strict"
+ 
+
+var box = {
+locked : true ,
+unlock: function() { this.locked = false ; } ,
+lock :function() { this.locked= true ; } ,
+_content: [] ,
+get content() {
+if ( this.locked) throw new Error (" L o c k e d !") ;
+return  this._content ;
+}
+}; 
+
+
+ function  withBoxUnlocked(  arg){
+this.locked=true;
+this.content= "mensaje";
+
+ }
+
+withBoxUnlocked.prototype.unlock= function( ar){
+  if(  ar == "key94")
+  this.locked=false;
+};
+
+withBoxUnlocked.prototype.leer= function(){
+if( !this.locked){
+  this.locked= false;
+  return this.content;
+}
+else
+return "no autorizado";
+};
+
+  </script>
