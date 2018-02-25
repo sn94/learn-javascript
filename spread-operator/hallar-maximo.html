@@ -1,0 +1,40 @@
+<script>
+
+
+
+Math.max();
+// -Infinity
+
+Math.max(1, 2, 3);
+// 3
+
+Math.max(100, 3, 4);
+// 100
+
+
+
+
+var arr = [2, 4, 8, 6, 0];
+
+function max(arr) {
+  return Math.max.apply(null, arr);
+}
+
+console.log(max(arr));
+// 8
+
+
+
+
+/**
+Sin usar apply, pero con el operador ...
+**/
+
+var arr = [2, 4, 8, 6, 0];
+var max = Math.max(...arr);
+
+console.log(max);
+// 8
+
+
+</script>

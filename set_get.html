@@ -13,11 +13,13 @@ Object.defineProperty( persona, "sexo",  {enumerable:true, value:"x"});
 Object.defineProperty( persona.prototype, "Sexo", 
 {   get: function(){  return (this.sexo=="F")? "Mujer": "Hombre";   },
     set: function( v ){ this.sexo= v;}   }  );
+
 Object.defineProperty(persona.prototype, "Fullname",
  {  get: function(){ return this.nombre+" "+this.apellido ;}   } );
 
 
 var juanito= new persona();
+
 juanito.nombre= "JUan"; juanito.apellido= "De La Mancha";
 juanito.ciudad= "Madrid";
 juanito.Sexo="M";

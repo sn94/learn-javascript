@@ -1,0 +1,14 @@
+<script>
+
+var frase= "Firefox Quantum includes a new CSS engine, written in Rust, that has state-of-the-art innovations and is blazingly fast.  "
+
+console.log( /CSS/.test(frase )   );
+
+var  dateTime = /\d\d-\d\d-\d\d\d\d \d\d:\d\d/;
+console.log(dateTime.test ("30-01-2003  15:20"));
+// true
+console.log(dateTime.test ("30-jan-2003  15:20"));
+// false
+
+
+</script>

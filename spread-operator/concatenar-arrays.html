@@ -1,0 +1,26 @@
+<script type="text/javascript">
+
+
+var arr = ['a', 'b', 'c'];
+var arr2 = ['d', 'e', 'f'];
+
+arr1 = arr.concat(arr2);
+console.log(arr);
+// ['a', 'b', 'c', 'd', 'e', 'f']
+
+/**
+
+UsANDO EL SPREAD operator
+Obs
+el spread operator es tres veces mas lento que la funcion concat
+
+**/
+
+var arr = ['a', 'b', 'c'];
+var arr2 = ['d', 'e', 'f'];
+
+arr = [...arr, ...arr2];
+console.log(arr);
+// ['a', 'b', 'c', 'd', 'e', 'f']
+
+</script>
