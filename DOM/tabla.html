@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Tabla dinamica</title>
+</head>
+
+<body>
+
+<button type="button"  onclick="nuevo()">Nuevo</button>
+<table id="tabData">
+
+<tr><th>ID</th><th>Foto</th><th>Nombres</th><th>Opcion</th></tr>
+</table>
+
+</body>
+
+
+
+<script>
+
+
+ 
+function nuevo(){
+var tabla=  document.getElementById("tabData");
+
+//var numRows= tabla.getElementsByTagName("tr").length;
+
+var nuevaFila= document.createElement("tr");
+
+var col1=  document.createElement("td");
+var txt1= document.createElement("input"); txt1.type="text";
+col1.appendChild(  txt1);
+
+var col2=  document.createElement("td");
+var im1= document.createElement("img");
+var bim= document.createElement("button"); 
+bim.type="button";
+bim.onclick= function(){  tabla.removeChild( this.parentNode.parentNode ); };
+bim.appendChild(document.createTextNode("Cargar..")) ;
+col2.appendChild(  im1);
+col2.appendChild(bim);
+
+
+
+var col3=  document.createElement("td");
+var txt3= document.createElement("input"); txt3.type="text";
+col3.appendChild( txt3);
+
+
+var col4=  document.createElement("td");
+var b3= document.createElement("button"); 
+b3.type="button";
+b3.onclick= function(){  tabla.removeChild( this.parentNode.parentNode ); };
+b3.appendChild(document.createTextNode("Borrar")) ;
+col4.appendChild( b3);
+
+
+
+nuevaFila.appendChild( col1 );
+nuevaFila.appendChild( col2 );
+nuevaFila.appendChild( col3);
+nuevaFila.appendChild( col4);
+//agregar a la tabla
+
+tabla.appendChild(  nuevaFila );
+
+    
+}
+
+
+
+</script>
+</html>

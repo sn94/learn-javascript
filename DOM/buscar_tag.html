@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Metodo similar a getElementsByTagName </title>
+</head>
+
+<body>
+ 
+ <p>ssfsfs</p>
+ <p>sfsfswwe</p>
+ <p>sadaaaaaa</p>
+ 
+ <button>button</button>
+
+</body>
+
+
+
+<script>
+
+
+function findTag( nodo ,  nombre ){
+var res=[];
+var hijos= nodo.childNodes;  
+for( var b=0; b< hijos.length; b++){
+    if( hijos[b].nodeType == document.ELEMENT_NODE ){
+        if( hijos[b].tagName.toLowerCase()== nombre.toLowerCase() ){
+    res.push(   hijos[b] );
+   } 
+    }
+  } return res;   
+}
+
+console.log( findTag( document.body, "p")  );
+
+
+</script>
+</html>

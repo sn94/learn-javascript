@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Construyendo una tabla DINAMICA</title>
+</head>
+
+<body>
+ </body>
+ <script>
+ var colegios=[
+ {"anio":2014,"codigo_departamento":"17","nombre_departamento":"ALTO PARAGUAY","codigo_distrito":"1704","nombre_distrito":"BAHIA NEGRA","codigo_barrio_localidad":"1704180","nombre_barrio_localidad":"ZONA BAHIA NEGRA POTY","codigo_zona":"6","nombre_zona":"RURAL","codigo_establecimiento":"1701007","nombre_institucion":"17-22","sector_o_tipo_gestion":"OFICIAL","codigo_region_administrativa":"17C1R1","nombre_region_administrativa":"ALTO PARAGUAY - REGION 1 - COORDINACION 1","nombre_supervisor":"BLANCA LIZ BENITEZ MARTI","niveles_modalidades":"EBBJA","nombre_tipo_organizacion":null,"participacion_comunitaria":null,"direccion":"PTO ESPERANZA","nro_telefono":null,"tiene_internet":null,"paginaweb":null,"correo_electronico":null,"id":40572,"anho_cod_geo":2012,"codigo_institucion":"16272","codigo_tipo_organizacion":"0","establecimiento_id":null,"tiene_computadora":null,"uri_establecimiento":"http://datos.mec.gov.py/id/establecimientos/1701007","uri_institucion":"http://datos.mec.gov.py/id/instituciones/16272"},
+ {"anio":2012,"codigo_departamento":"17","nombre_departamento":"ALTO PARAGUAY","codigo_distrito":"1704","nombre_distrito":"BAHIA NEGRA","codigo_barrio_localidad":"1704180","nombre_barrio_localidad":"ZONA BAHIA NEGRA POTY","codigo_zona":"6","nombre_zona":"RURAL","codigo_establecimiento":"1701007","nombre_institucion":"2483","sector_o_tipo_gestion":"OFICIAL","codigo_region_administrativa":"17C1R1","nombre_region_administrativa":"ALTO PARAGUAY - REGION 1 - COORDINACION 1","nombre_supervisor":"BLANCA LIZ BENITEZ MARTI","niveles_modalidades":"EI,EEB","nombre_tipo_organizacion":"ESCUELA ASOCIADA","participacion_comunitaria":"NO","direccion":"PTO ESPERANZA","nro_telefono":"0983304107","tiene_internet":"NO","paginaweb":" ","correo_electronico":" ","id":33070,"anho_cod_geo":2012,"codigo_institucion":"3108","codigo_tipo_organizacion":"2","establecimiento_id":null,"tiene_computadora":"NO","uri_establecimiento":"http://datos.mec.gov.py/id/establecimientos/1701007","uri_institucion":"http://datos.mec.gov.py/id/instituciones/3108"},
+ {"anio":2012,"codigo_departamento":"17","nombre_departamento":"ALTO PARAGUAY","codigo_distrito":"1704","nombre_distrito":"BAHIA NEGRA","codigo_barrio_localidad":"1704160","nombre_barrio_localidad":"SIERRA LEON","codigo_zona":"6","nombre_zona":"RURAL","codigo_establecimiento":"1703003","nombre_institucion":"2261 COLONIA SIERRA LEON","sector_o_tipo_gestion":"OFICIAL","codigo_region_administrativa":"17C1R1","nombre_region_administrativa":"ALTO PARAGUAY - REGION 1 - COORDINACION 1","nombre_supervisor":"BLANCA LIZ BENITEZ MARTI","niveles_modalidades":"EEB","nombre_tipo_organizacion":"ESCUELA ASOCIADA","participacion_comunitaria":"SI","direccion":"COLONIA SIERRA LEON","nro_telefono":" ","tiene_internet":" ","paginaweb":" ","correo_electronico":" ","id":33119,"anho_cod_geo":2012,"codigo_institucion":"6078","codigo_tipo_organizacion":"2","establecimiento_id":null,"tiene_computadora":null,"uri_establecimiento":"http://datos.mec.gov.py/id/establecimientos/1703003","uri_institucion":"http://datos.mec.gov.py/id/instituciones/6078"},
+ ];
+ 
+ 
+ var headers= Object.keys( colegios[0] );
+ 
+ var tabla= document.createElement("table");
+ tabla.style.border="2px outset #ccff84";
+ tabla.style.backgroundColor="#ddff98";
+ 
+ var headerth= document.createElement("tr");
+    headerth.style.backgroundColor="#bbff73";
+     
+ for(var f=0; f< headers.length; f++){
+     var head= document.createElement("th");
+     head.style.backgroundColor="#99ee62";
+      head.style.border="2px outset #ccff84";
+     var textNode= document.createTextNode( headers[f]);
+     head.appendChild( textNode );
+     headerth.appendChild( head);
+     tabla.appendChild( headerth);
+ }
+ 
+ 
+ for(var i=0; i<colegios.length; i++){
+    var datatr= document.createElement("tr");
+ for(var d=0; d< headers.length; d++){
+    var td= document.createElement("td");
+    td.style.textAlign="right";
+      td.style.border="2px outset #ccff84";
+    var obj= colegios[i];
+    var textNodo= document.createTextNode( obj[headers[d]]);
+    td.appendChild(  textNodo );
+    datatr.appendChild( td );
+    tabla.appendChild( datatr);
+ }}
+ 
+ document.body.appendChild(  tabla );
+ </script>
+</html>

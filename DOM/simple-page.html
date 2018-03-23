@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Practicando DOM</title>
+</head>
+
+<body><div class="bordado">panel 1</div>
+<button id="btnOne" type="button">Click me</button>
+<!-- COMENTARIO ... --><a href="/anypage.html">ENLACE 1</a><p>PARRAFO 1<p>PARRAFO INNER 1.1 </p></p></body>
+<script>
+
+"use strict";
+// document es el objeto global para acceder a elementos del DOM
+
+//Esta propiedad devuelve el nodo raiz html
+//console.log( document.documentElement);
+
+//Propiedad body :  Devuelve un objeto representante de body
+//console.log( document.body);
+
+//tipos de nodos
+/*console.log( document.ELEMENT_NODE, " Elemento ");
+console.log( document.COMMENT_NODE, " Comentario ");
+console.log( document.TEXT_NODE, " Texto ");
+*/
+
+//Devuelve los nodos hijos
+/*var hijosBody=  document.body.childNodes;
+for( var a=0; a<hijosBody.length;  a++ ) {
+    console.log(  hijosBody[ a ] );// Se imprime un objeto NodeList
+    console.log(  hijosBody[ a ].nodeType );//tipo de nodo
+}
+*/
+
+
+//Movimiento por el arbol de nodos
+//Propiedades
+//childNodes
+//firstChild
+//previousSibling
+//nextSibling
+//parentNode
+//lastChild
+
+
+
+//filtrar por tipo
+ /*for(var b=0; b<document.body.childNodes.length; b++){
+    if( document.body.childNodes[b].nodeType == document.ELEMENT_NODE ){
+        
+        for(var c=0; c< document.body.childNodes[b].childNodes.length; c++){
+            console.log( document.body.childNodes[b].childNodes[c].nodeName );
+        }
+    }
+ }*/
+
+
+//filtrar por tag
+
+/*var hijos= document.body.childNodes;
+for( var a=0; a< hijos.length; a++){
+    if( hijos[a].nodeName == "A"){
+        var tag= hijos[a];
+        console.log("Tag: ", tag.nodeName);
+        //Obs los nodos hermanos pueden ser cualquier texto en vez de los nodos esperados
+        //Es debido a los caracteres de nueva linea existente en el html 
+        console.log("Hermano anterior ", tag.previousSibling.nodeName);
+        console.log("Hermano siguiente ", tag.nextSibling.nodeName)
+    }
+}*/
+
+
+//la funcion getElementsByTagName existe para cada objeto nodo que contenga hijos nodos
+var parrafos= document.body.getElementsByTagName("p");
+for(var a=0; a< parrafos.length; a++){
+    console.log( parrafos[a].innerHTML);
+}
+
+var enlaces= document.body.getElementsByTagName("a");
+for(var a=0; a< enlaces.length; a++){
+    console.log( enlaces[a].innerHTML,"  ",  enlaces[a].href);
+}
+
+
+//filtro por clase
+// getElementsByClassName existe para cada objeto nodo que contenga hijos nodos
+var claseBorder= document.body.getElementsByClassName("bordado");
+console.log(  claseBorder[0].innerHTML, " ", claseBorder[0].text );
+
+
+
+//la funcion getElementById existe para el objeto global document
+var botonId=  document.getElementById("btnOne");
+console.log( botonId.type);
+
+
+
+
+
+
+</script>
+</html>

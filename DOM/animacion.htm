@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Animando</title>
+</head>
+
+<body>
+
+<p style="text-align: center;">
+
+<img src="kitten.png" style=" ali width: 50px;height: 70px;"/>
+
+</p>
+
+</body>
+<script>
+var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+ 
+ 
+ 
+var foto=  document.getElementsByTagName("img")[0];
+var angulo=0, tiempo= null;
+
+function animar(time)
+{ if( tiempo !=  null)
+angulo+= (time - tiempo ) * 5;
+
+tiempo= time;
+foto.style.top= Math.sin( angulo ) * 20 + "px";
+foto.style.left=Math.cos(angulo)*200  +"px";
+console.log(foto.style.top);
+ requestAnimationFrame( animar );
+} 
+
+ requestAnimationFrame(   animar) ;
+</script>
+</html>

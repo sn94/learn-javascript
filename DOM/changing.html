@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Modificando el Dom</title>
+</head>
+
+<body>
+
+<div id="graficos">  
+<div id="pila" style="float: left; margin-right:100px;">
+<h1>Pila</h1>
+<div style="background-color: red;height: 10px; width: 100px;"></div>
+<div style="background-color: lightcoral;height: 10px; width: 100px;"></div>
+
+<div style="background-color: yellow;height: 10px; width: 100px;"></div>
+<div style="background-color: green;height: 10px; width: 100px;"></div>
+
+<div style="background-color: blue;height: 10px; width: 100px;"></div>
+<div style="background-color: orange;height: 10px; width: 100px;"></div>
+
+</div>
+
+
+<div id="desapilados" style="float: left;">
+<h1>DesaPilados</h1>
+</div>
+</div>
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+
+<div  style="margin: 100px;" >
+<button id="btnPop" onclick="pop()"> Sacar un elemento (pop, pull) </button>
+<button id="btnPush"  onclick="push()"> Reinsertar elemento (push) </button><br />
+<button id="btnDel1"  onclick="del_pila()"> Eliminar un elemento de la pila </button>
+<button id="btnDel2"  onclick="del_desapila()"> Eliminar un elemento de los desapilados </button><br />
+
+<button id="btnCrear"  type="button"  onclick="Crear();">Crear un elemento nuevo a la pila</button>
+
+</div>
+
+</body>
+
+<script>
+
+
+
+// appendChild
+// removeChild
+// insertBefore( node to move at the top,  node second );
+// replaceChild( new node, replacing node)
+
+
+
+function del_pila(){
+    var pila= document.getElementById("pila");
+    pila.removeChild(  pila.getElementsByTagName("div")[0]  );
+}
+
+
+function del_desapila(){
+    var desapilados= document.getElementById("desapilados");
+    desapilados.removeChild(  desapilados.getElementsByTagName("div")[0]);
+}
+function pop(){
+    var pila=   document.getElementById("pila");
+    var desapilado= document.getElementById("desapilados");
+    
+    desapilados.insertBefore(  
+    pila.getElementsByTagName("div")[0 ] , 
+    desapilado.getElementsByTagName("div")[0] );
+    
+   
+}
+
+function push(){
+    var pila=   document.getElementById("pila");
+    var desapilado= document.getElementById("desapilados");
+    
+    pila.insertBefore( 
+     desapilado.getElementsByTagName("div")[0 ],
+     pila.getElementsByTagName("div")[0] );
+}
+ 
+ 
+ 
+ 
+function Crear(){
+var pila= document.getElementById("pila");
+    var nuevo=  document.createElement("div");
+    nuevo.style.backgroundColor= "black";
+    nuevo.style.width= "100px";
+    nuevo.style.height= "10px";
+     
+     console.log( nuevo ); 
+    pila.insertBefore( nuevo ,  pila.getElementsByTagName("div")[0]);
+}
+
+
+  
+
+
+</script>
+</html>

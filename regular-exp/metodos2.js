@@ -12,7 +12,7 @@
 
 var codigo= "cakephp,codeigniter,laravel";
 
-var regex= /(\w+),/g;
+var regex= /\b(\w+),?\b/g;
 
 var res= regex.exec( codigo);
 
