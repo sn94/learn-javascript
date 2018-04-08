@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Eventos (Prevent Default Action)</title>
+</head>
+ 
+ <a href=" https :// developer.mozilla.org/">MDN </a>
+
+
+</body>
+<script>
+ var  link = document.querySelector ("a");
+link.addEventListener ("click", function(event) {
+console.log("Nope .");
+event.preventDefault ();
+});
+
+</script>
+</html>
+
+  

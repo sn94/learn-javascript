@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Eventos (Mouse Move)</title>
+ 
+ 
+
+</head>
+ 
+</body>
+ <p>Hover over this <strong >paragraph <i>Cursiva</i> </strong >.</p>
+ 
+ 
+<script >
+var  para = document.querySelector ("p");
+
+
+function  isInside(node , target ) {
+for (; node != null; node = node.parentNode)
+if (node ==  target) return  true;
+}
+
+
+para.addEventListener ("mouseover", function(event) {
+    event.stopPropagation();
+    console.log( event.relatedTarget.nodeName , "  ", para.nodeName );
+if (! isInside(event.relatedTarget , para))
+para.style.color = "red";
+});
+
+para.addEventListener ("mouseout", function(event) {
+if (! isInside(event.relatedTarget , para))
+para.style.color = "";
+});
+ 
+
+
+
+</script >
+
+</html>
+ 

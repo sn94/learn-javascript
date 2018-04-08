@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Grilla</title>
+ 
+ 
+
+</head>
+ 
+</body>
+<script>
+
+for(var f=0; f< 8; f++){
+    for(var g=0; g< 8; g++){
+            var div= document.createElement("div");
+            div.style.border="1px solid green";
+            div.appendChild( document.createTextNode( (f+1) * (g+1)));
+            div.style.position="absolute";
+            div.style.backgroundColor="#ffaadd";
+            
+            div.style.width="100px"; div.style.height="100px";
+            div.style.top= 100*(f+1) +"px";
+            div.style.left= 100*(g+1) +"px";
+            document.body.appendChild(  div );
+        }
+}
+</script>
+</html>

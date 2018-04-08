@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Eventos</title>
+</head>
+
+<body>
+<p>A paragraph  with a <button >button </button >.</p>
+
+</body>
+<script>
+var  para = document.querySelector ("p");
+var  button = document.querySelector ("button");
+para.addEventListener ("mousedown", function () {
+console.log(" Handler  for  paragraph .");
+});
+button.addEventListener ("mousedown", function(event) {
+console.log(" Handler  for  button .");
+if (event.which  == 3)
+event.stopPropagation ();
+}); 
+
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Eventos</title>
+</head>
+
+<body>
+ <button >button </button >
+
+</body>
+<script>
+function  once(evento){
+    
+   console.log( "Evento activado ");
+   console.log("tipo de evento ", evento.type);
+   console.log("tecla del mouse presionada ", 
+   evento.which==1 ?"Left" :  evento.which==2?"Middle":"Right");
+//removeEventListener("click", once );
+   
+} 
+var boton= document.querySelector("button");
+boton.addEventListener("click",  once );
+
+ 
+</script>
+</html>
