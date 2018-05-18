@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Grafico pastel</title>
+   <style>
+   canvas{ 
+    width: 400px;
+    height: 200px;
+    background-color: beige;
+   }
+   </style>
+</head>
+
+<body>
+ 
+ 
+ <canvas>
+ 
+ </canvas>
+ 
+   <script>
+
+
+
+var  data=  [
+
+{ lenguaje: "java", programadores: 120, color:"lightblue"},
+
+{ lenguaje: "javascript", programadores: 500, color: "yellow"}, 
+
+{ lenguaje: "c++", programadores: 40, color: "green"}, 
+
+{ lenguaje: "php", programadores: 80, color: "red"},
+
+
+];
+
+
+var total=  data.reduce( function(acumu,  valor,  indice,  arreglo ){
+   return parseInt(valor.programadores)+acumu; 
+}   ,  0 );
+
+
+var percentages= data.map( function(valor, indice, arreglo){
+  //  100: total :: X : valor
+  var porcentaje= Math.round( (100 *  parseInt( valor.programadores )) / total )  ;
+  return porcentaje;
+});
+
+
+var rad_percentages=  percentages.map( function(valor, indice, arreglo){
+    
+    //Math.Pi : 50 :: x : valor
+    var rad_percen=  ( (Math.PI)*valor )/50;  
+    return rad_percen;
+}  );
+
+
+
+
+
+var lienzo= document.querySelector("canvas");
+
+var sheet= lienzo.getContext("2d");
+
+/**
+El angulo de inicio es 90 grados sexagesimales
+El angulo negativo indica que se dibujara en sentido contrario al del reloj
+**/
+var iniAngle= (Math.PI)* -0.5;
+var textPos= 99;
+data.forEach( function(res){
+    
+    var angl=  ((Math.PI*2)* (res.programadores/ total) );
+    sheet.beginPath();
+    // x   y     radio  start angle,  end angle
+    sheet.arc( 100,70,50, iniAngle ,  iniAngle+ angl);
+    iniAngle+=  angl;
+    sheet.lineTo(100,70);
+    sheet.fillStyle= res.color;
+    sheet.fill();
+    
+    //sheet.moveTo(100,70);
+    sheet.font= "14px Georgia";
+    sheet.fillStyle= "black";
+    // 100 : 0
+    var x_text=  Math.round( Math.cos( iniAngle)*50) ;
+    var y_text=   100-Math.round( Math.sin( iniAngle)*50   );
+    sheet.fillText( res.programadores, 
+                     x_text, 
+                     y_text );
+    console.log(   Math.round( Math.cos( iniAngle)*50  ), 
+    Math.round( Math.sin( iniAngle)*50  ));
+    
+});
+
+/** Arc dibuja el arco correspondiente segun el valor del angulo,
+para forma la figura semejante a un pedazo de pastel se debe combinar una linea orientada 
+al centro del circulo, luego ya se cierran todos los espacios con la linea faltante y se
+forma el pedazo de cake
+*/
+ 
+        
+        
+
+
+
+ </script>
+ 
+
+</body>
+
+</html>
