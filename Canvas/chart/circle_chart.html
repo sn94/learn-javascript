@@ -87,8 +87,8 @@ data.forEach( function(res){
     sheet.font= "14px Georgia";
     sheet.fillStyle= "black";
     // 100 : 0
-    var x_text=  Math.round( Math.cos( iniAngle)*50) ;
-    var y_text=   100-Math.round( Math.sin( iniAngle)*50   );
+    var x_text=  Math.round( Math.sin( iniAngle)*50) ;
+    var y_text= Math.round( Math.cos( iniAngle)*50)      );
     sheet.fillText( res.programadores, 
                      x_text, 
                      y_text );

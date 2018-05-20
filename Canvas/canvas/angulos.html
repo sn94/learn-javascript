@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Figuras geometricas</title>
+   <style>
+   canvas{
+    width:100%;
+    height:100%;
+   }
+   </style>
+</head>
+
+<body>
+ 
+ 
+ <canvas></canvas>
+  
+ 
+    
+   <script>
+  
+  
+  var angulos= [
+  {rad: Math.PI/4, label: 45 },
+   {rad: Math.PI/2, label: 90  },
+    {rad: Math.PI, label: 180  },
+     {rad: 3*Math.PI/2, label: 270  },
+      {rad: Math.PI*2, label: 360  }
+  ];
+   var canvas = document.querySelector("canvas");
+   var crx = canvas.getContext('2d');
+ 
+ var col= 40;
+ 
+ crx.beginPath(); 
+ //angulos.forEach( function(angulos){
+    
+ 
+
+ crx.arc( col, 40 , 30 , 0 , angulos[0].rad , false);// counterclockwise falruse or true
+ crx.lineTo(40,col);
+  crx.fillStyle= "green";
+ crx.fill(); 
+ 
+ crx.font= "14px Georgia";
+ crx.fillStyle= "black";
+ //crx.textAlign= "center"; crx.textBaseLine= "middle";
+ crx.fillText(  angulos[0].label+" Grados", col, 80);// col fila ?
+ crx.closePath();
+ 
+ 
+ crx.beginPath();
+  crx.arc( 100, 40 , 30, angulos[1].rad , false);// counterclockwise falruse or true
+ crx.lineTo(40,100);
+  crx.fillStyle= "green";
+ crx.fill(); 
+ 
+ crx.font= "14px Georgia";
+ crx.fillStyle= "black";
+ //crx.textAlign= "center"; crx.textBaseLine= "middle";
+ crx.fillText(  angulos[1].label+" Grados", col, 170);// col fila ?
+  crx.closePath();
+ 
+ col+= 40; 
+  
+ //});
+ 
+ 
+ 
+ </script>
+ 
+
+</body>
+
+</html>
