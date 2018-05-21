@@ -21,6 +21,27 @@ req.addEventListener( "load",   function(){
   
   console.log(  req.status );
   console.log(  req.statusText );
-  console.log(  req.responseText );
+  if(  req.status < 400){
+ callBack( req.responseText, null );
+  }else{
+    callBack(null, new Error("request fail") )
+  }
+  
 });
+
+
+req.addEventListener("error",  callBack(null, new Error("Network error") ) );
+
+
+function callBack( contenido, error ){
+  
+  if( error != null){
+     console.log("Error de red");
+  }else{
+    console.log(  contenido ); 
+  }
+}
+
+
+
 req.send(null);
