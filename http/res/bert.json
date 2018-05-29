@@ -1,0 +1,6 @@
+{
+    "name": "Yamato",
+    "spouse": "res/spouse.json",
+    "mother": "res/mother1.json",
+    "father": "res/father1.json"
+    }
