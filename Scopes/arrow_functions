@@ -1,0 +1,31 @@
+function Person (age) {
+  this.age = age
+  var dis=  this;
+  
+ const getAge = () => {
+  console.log('age', this.age) // 25
+  return this.age
+};
+  /*
+  function getAge() {
+    console.log('age', dis.age) //undefined
+    return dis.age
+  }*/
+
+  return {
+    getAge
+  }
+}
+
+const Myke = new Person(25);
+
+/*** Creando la funcion, asignandola directamente a una propiedad del objeto**/
+/*Myke['getAge'] =   function(){
+  console.log('age', this.age) // 25
+  return this.age
+};
+*/
+
+console.log(Myke.getAge()); // undefined 
+ 
+  
