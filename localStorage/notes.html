@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+
+<select id="list">
+
+</select>
+
+<button onclick="addNote()">  new  </button>
+<textarea id="currentnote" style="width: 100%; height: 10em;"></textarea>
+
+</body>
+<script>
+var textarea= document.getElementById("currentnote");
+var lista=  document.getElementById("list");
+var Notas= {};
+
+
+
+lista.addEventListener( 'change', function(event){
+  showNote(  event.target.value );
+});
+
+textarea.addEventListener("change", function(event){
+    Notas[ lista.value ]= textarea.value;
+    addStorage();
+});
+
+
+function showNote(titulo){
+    textarea.value= Notas[ titulo ];
+}
+
+function addStorage( ){
+localStorage.setItem( "notas", JSON.stringify(Notas)  ) ;    
+}
+
+
+function createItemList(title, content){
+  
+  let opcion= document.createElement("option");
+  opcion.value=  title;
+  opcion.text= title;
+  lista.appendChild( opcion ); 
+}
+
+
+
+function addNote(){
+
+  let title= prompt("Note name : ", "");
+  let contenido= textarea.value;
+  
+  if( !title)
+  return;
+  if( !Notas.hasOwnProperty(title ))
+  {
+   Notas[title]="";
+   createItemList(title, "..");
+   addStorage();
+  }
+  
+  lista.value= title;
+  textarea.value= Notas[title]; 
+   
+}
+
+</script>
+</html>
