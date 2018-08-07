@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="Sonia" />
+
+	<title>Autocompletion</title>
+</head>
+
+<body>
+ 
+Find a city from Paraguay
+<input type="text"     id="find-input" oninput="request_cities()"/>
+<div id="sugerencias"></div>
+ </body>
+ <script>
+ 
+ var entrada= document.getElementById( "find-input");
+ var suggestions= document.getElementById("sugerencias");
+ var arr= [];
+ 
+ 
+ 
+ function add_click_events( ele ){
+    ele.addEventListener('click', function(ev){
+        
+        entrada.value= ev.target.textContent;
+        console.log("you clicked : "+ ev.target.textContent);
+    });
+ }
+ 
+ 
+ function load_suggest(){
+    
+    suggestions.innerHTML="";
+    arr.forEach( function(ele){
+        
+        let divchild= document.createElement("div");
+        divchild.innerHTML= ele;
+        suggestions.appendChild( divchild);
+        add_click_events(  divchild);
+    
+    });
+ }
+ 
+ 
+ function filter_by_matching(){
+    let valor= entrada.value;
+   
+    arr= arr.filter( function(val, indice, original){
+        
+        let pattern= new RegExp("("+valor.toLowerCase()+")"); 
+        return pattern.test( val.toLowerCase());
+    });
+     
+ }
+ 
+ 
+ function filter_result( ar){
+    arr= [];
+    ar.forEach( function( val){
+       if(  "data" in val ){
+        let lista= val.data;
+        lista.forEach( (ele)=> arr.push( ele.name) );
+         
+       }
+    }); 
+ }
+ 
+ 
+function request_cities(){
+    
+    let path= 'http://localhost/learn-javascript/resources/towns.json';
+    
+    let req=new XMLHttpRequest( );
+    req.open("get", path, true);
+    
+    req.addEventListener('load', function(ev){
+        
+        let strjson= req.responseText;
+        let jsonobj=  JSON.parse( strjson); 
+       
+       filter_result( jsonobj );
+       filter_by_matching();
+        load_suggest( );
+        
+        
+    
+    });
+    
+    req.send( null );
+    
+    
+}
+ </script>
+</html>

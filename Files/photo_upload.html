@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+	<title>Tabla dinamica</title>
+</head>
+
+<body>
+
+
+
+<form method="post" enctype="multipart/form-data" autocomplete="on">
+<input  type="file" accept="text/html" size="20" placeholder="Indique un archivo" /><br/>
+<textarea cols="30" rows="100" wrap="virtual" maxlength="100"></textarea>
+
+<input type="submit" value="Subir" />
+</form>
+
+
+
+
+</body>
+
+
+
+<script>
+
+var filein= document.querySelector('input[type=file]');
+var textarea= document.querySelector('textarea');
+
+
+
+filein.addEventListener('change',  function(event ){
+   
+   //files no es un arreglo real
+   let filess= filein.files;
+   Array.prototype.forEach.call( filess,  leerArchivo  );
+    
+});
+
+
+
+function leerArchivo( file){
+  let reader=  new FileReader( file );
+  
+  reader.addEventListener("load",  function(event){
+  textarea.value= reader.result ;
+  });
+  
+  reader.readAsText(file);
+}
+ 
+
+
+
+</script>
+</html>

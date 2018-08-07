@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="Sonia" />
+
+	<title>Conway's Game of Life</title>
+</head>
+
+<body>
+   
+<div id="grid">
+ 
+</div>
+
+ 
+<button onclick="survive()" >Next generation</button>
+
+
+ </body>
+ <script>
+  
+  
+  const rows= 30, cols= 15;
+  var checkboxes= [];
+  
+  
+  
+  function gen_random_states(){
+ 
+ let ran=[];
+ for(let a=0; a< rows*cols ; a++){
+    ran.push(  Math.random() < 0.5) ;
+ } return ran;
+  }
+  
+  
+  function set_random_states(  states){
+    
+    checkboxes.forEach(function( val, indice){
+        val.checked=  states[indice];
+    });
+  }
+  
+  
+  
+  
+  function trans_index( i, j){   return  i * cols  + j;  }
+  
+  function recorrer_cols(fila, toRight= true){
+    
+  }
+  
+   function neighbours( ci, cj ){
+    let neighbours_x= 0;
+    let neighbours_y= 0;
+    let neighbours_d= 0;
+    //recorrer todos las columnas de su fila
+      for( let j=cj+1 ; j< cols; j++){  //por la derecha
+         if(checkboxes[  trans_index(ci, j)].checked  )  
+            neighbours_x ++;
+        else {  break; } 
+    }
+     for( let j=cj-1 ; j>=0 ; j--){  //por la izquierda
+         if(checkboxes[  trans_index(ci, j)].checked  )  
+            neighbours_x ++;
+        else {  break; } 
+    }
+    
+    
+    //recorrer todos las filas de su columna
+     for( let i=ci+1 ; i< rows; i++){  //por abajo
+         if(checkboxes[  trans_index(i, cj)].checked  )  
+            neighbours_y ++;
+        else {  break; } 
+    }
+     for( let i=ci-1 ; i>=0 ; i--){  //por arriba
+         if(checkboxes[  trans_index(i, cj)].checked  )  
+            neighbours_y ++;
+        else {  break; } 
+    }
+    
+    //recorrer diagonales (y si nro fila fuera cero?)
+    let ci_new= ci ? ci-1 : -1;
+    let cj_new= cj ? cj-1 : -1;
+    let j= cj_new;
+      for( let i= ci_new ; i>=0 &&  j>=0; i--){  //por abajo
+          
+          if(checkboxes[  trans_index(i, j)].checked  ){
+            
+            neighbours_d ++; j--;
+          } else {  break; } 
+    
+    }
+    
+    ci_new= (ci+1) < rows ? ci+1 : -1;
+    cj_new= (cj+1) < cols ? cj+1 : -1;
+     j=  cj_new;
+      for( let i= ci_new ; i< rows && j< cols ; i++){  //por abajo
+        
+         if(checkboxes[  trans_index(i, j)].checked  ){
+             neighbours_d ++; j++; 
+         }   
+        else {  break; } 
+    
+    }
+     
+     return { x: neighbours_x  ,  y: neighbours_y  , d:  neighbours_d }; 
+  }
+  
+  
+  function survive(){
+    //    fila * columnas  +  col
+  /*  let life= [];
+    for( let i=0 ; i< rows; i++){
+      for( let j=0 ; j< cols; j++){
+        
+        let vector_index= trans_index(i, j);
+        console.log( `${i},${j} ` );
+        neighbours( i, j);
+        
+    }  
+    }*/
+    neighbours( 5,9);
+  }
+  
+  
+
+  function generate_grid(){
+    let grilla= document.getElementById("grid");
+    
+    for(let i=0; i< rows; i++){
+        for(let j=0; j< cols; j++){
+            let checkbox= document.createElement("input");  checkbox.type="checkbox";
+            //agregar a la lista
+            checkboxes.push(checkbox);
+            
+            grilla.appendChild(  checkbox );
+        }
+    grilla.appendChild( document.createElement("br")); 
+    } }
+  
+  
+ 
+  
+  
+  
+  
+  
+  generate_grid();
+  set_random_states(  gen_random_states());
+  
+ </script>
+</html>
