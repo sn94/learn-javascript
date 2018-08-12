@@ -47,81 +47,117 @@
   
   function trans_index( i, j){   return  i * cols  + j;  }
   
-  function recorrer_cols(fila, toRight= true){
-    
-  }
-  
-   function neighbours( ci, cj ){
-    let neighbours_x= 0;
-    let neighbours_y= 0;
-    let neighbours_d= 0;
-    //recorrer todos las columnas de su fila
+  function neighbour_x( ci, cj){
+    let x=0; 
+     //recorrer todos las columnas de su fila
       for( let j=cj+1 ; j< cols; j++){  //por la derecha
-         if(checkboxes[  trans_index(ci, j)].checked  )  
-            neighbours_x ++;
-        else {  break; } 
+         if(checkboxes[  trans_index(ci, j)].checked  ){ 
+            console.log(trans_index(ci, j), " j ", j); 
+              x ++; 
+         }  else {  break; } 
     }
      for( let j=cj-1 ; j>=0 ; j--){  //por la izquierda
-         if(checkboxes[  trans_index(ci, j)].checked  )  
-            neighbours_x ++;
-        else {  break; } 
+         if(checkboxes[  trans_index(ci, j)].checked  ) {
+            console.log( trans_index(ci, j), " j2 ", j); 
+                x ++;  
+         }else {  break; } 
     }
-    
-    
-    //recorrer todos las filas de su columna
+    console.log("    x final ", x);
+     return x;
+  }
+  
+  
+  function neighbour_y( ci, cj){
+     //recorrer todos las filas de su columna
      for( let i=ci+1 ; i< rows; i++){  //por abajo
          if(checkboxes[  trans_index(i, cj)].checked  )  
-            neighbours_y ++;
+            this.y ++;
         else {  break; } 
     }
      for( let i=ci-1 ; i>=0 ; i--){  //por arriba
          if(checkboxes[  trans_index(i, cj)].checked  )  
-            neighbours_y ++;
+            this.y ++;
         else {  break; } 
-    }
+    } 
+  }
+  
+  
+  function neighbour_dia( ci,cj){
     
-    //recorrer diagonales (y si nro fila fuera cero?)
+    
+    //recorrer diagonal principal (y si nro fila fuera cero?)
     let ci_new= ci ? ci-1 : -1;
     let cj_new= cj ? cj-1 : -1;
     let j= cj_new;
-      for( let i= ci_new ; i>=0 &&  j>=0; i--){  //por abajo
+      for( let i= ci_new ; i>=0 &&  j>=0; i--){  //por arriba
           
           if(checkboxes[  trans_index(i, j)].checked  ){
-            
-            neighbours_d ++; j--;
+           
+            neighbours_d ++; j--;    
           } else {  break; } 
     
     }
     
-    ci_new= (ci+1) < rows ? ci+1 : -1;
-    cj_new= (cj+1) < cols ? cj+1 : -1;
+    ci_new= (ci+1) < rows ? ci+1 : rows;
+    cj_new= (cj+1) < cols ? cj+1 : cols;
      j=  cj_new;
       for( let i= ci_new ; i< rows && j< cols ; i++){  //por abajo
-        
          if(checkboxes[  trans_index(i, j)].checked  ){
              neighbours_d ++; j++; 
          }   
         else {  break; } 
+    }
+
+
+      //recorrer diagonal secundaria (y si nro fila la ultima?)
+    ci_new= (ci-1) < rows ? ci-1 : -1;
+    cj_new= (cj+1) < cols ? cj+1 : cols;
+    j= cj_new;
+      for( let i= ci_new ; i>=0 &&  j < cols  ; i--){  //por arriba
+          
+          if(checkboxes[  trans_index(i, j)].checked  ){
+            
+            neighbours_d ++; j++;
+          } else {  break; } 
     
     }
-     
-     return { x: neighbours_x  ,  y: neighbours_y  , d:  neighbours_d }; 
+    
+    ci_new= (ci+1) < rows ? ci+1 : rows;
+    cj_new= (cj-1) < cols ? cj-1 : -1;
+     j=  cj_new;
+      for( let i= ci_new ; i< rows && j>= 0; i++){  //por abajo
+         if(checkboxes[  trans_index(i, j)].checked  ){
+             neighbours_d ++; j--; 
+         }   
+        else {  break; } 
+    }
+    
+  }
+
+
+   function neighbours( ci, cj ){
+   let nums= { x: 0,  y: 0, d:  0 };
+   nums.x= neighbour_x( ci, cj);
+   neighbour_y.call( nums,     ci, cj);
+   neighbour_dia( nums, ci, cj);
+   return  nums; 
   }
   
   
-  function survive(){
+  function survive( i , j){
     //    fila * columnas  +  col
-  /*  let life= [];
-    for( let i=0 ; i< rows; i++){
-      for( let j=0 ; j< cols; j++){
-        
-        let vector_index= trans_index(i, j);
-        console.log( `${i},${j} ` );
-        neighbours( i, j);
-        
-    }  
-    }*/
-    neighbours( 5,9);
+    
+    let surv= neighbours( i, j);
+    let sum= surv.x+ surv.y+surv.d;
+    if( checkboxes[ trans_index( i, j)].checked && (sum < 2 || sum> 3) ) return false;
+    else{
+     if( checkboxes[ trans_index( i, j)].checked  &&  (sum == 3 || sum == 2)  )  return true;
+    else{
+        if( !checkboxes[ trans_index( i, j)].checked  && sum== 3 ) return true;
+    }
+    
+       
+    }
   }
   
   
@@ -143,12 +179,16 @@
   
  
   
-  
-  
-  
-  
+  function GridOfLife(){
+    
   generate_grid();
   set_random_states(  gen_random_states());
+  console.log( "5,7 ", survive(5,7));
+  }
+  
+  
+  GridOfLife();
+  
   
  </script>
 </html>
