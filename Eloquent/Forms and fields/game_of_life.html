@@ -47,7 +47,7 @@
   
   function trans_index( i, j){  
     
-    if( j >= cols ||  i > rows) j= cols-1;
+    if( j >= cols ||  i == rows) j= cols-1;
     if( i >= rows) i= rows-1;
     
     return  i * cols  + j;  }
@@ -61,7 +61,9 @@
     let referencia=  trans_index( k,0) ; 
     if( indice == referencia){     i= k;}
     
-    if( indice >= referencia && indice <=  trans_index( k+1 ,0) ){  i= k;}
+    if( indice >= referencia && indice <=  trans_index( k+1 ,0) ){ 
+        
+        i= k;}
    
   
     }
