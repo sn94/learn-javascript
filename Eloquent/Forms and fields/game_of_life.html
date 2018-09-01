@@ -45,45 +45,71 @@
   
   
   
-  function trans_index( i, j){   return  i * cols  + j;  }
+  function trans_index( i, j){  
+    
+    if( j >= cols ||  i > rows) j= cols-1;
+    if( i >= rows) i= rows-1;
+    
+    return  i * cols  + j;  }
+      
+   
+   function trans_index_r( indice){  
+    let i=0;
+    let k=0
+    for(k=0; k< rows; k++){
+         
+    let referencia=  trans_index( k,0) ; 
+    if( indice == referencia){     i= k;}
+    
+    if( indice >= referencia && indice <=  trans_index( k+1 ,0) ){  i= k;}
+   
   
+    }
+    
+   let j=  indice - i * cols;
+    
+    return  [i ,j ];
+    }
+   
+   
   function neighbour_x( ci, cj){
     let x=0; 
      //recorrer todos las columnas de su fila
       for( let j=cj+1 ; j< cols; j++){  //por la derecha
          if(checkboxes[  trans_index(ci, j)].checked  ){ 
-            console.log(trans_index(ci, j), " j ", j); 
               x ++; 
          }  else {  break; } 
     }
      for( let j=cj-1 ; j>=0 ; j--){  //por la izquierda
-         if(checkboxes[  trans_index(ci, j)].checked  ) {
-            console.log( trans_index(ci, j), " j2 ", j); 
+         if(checkboxes[  trans_index(ci, j)].checked  ) { 
                 x ++;  
          }else {  break; } 
     }
-    console.log("    x final ", x);
+    console.log("Numero de vecinos de ("+ci+","+cj+") en horizontal", x);
      return x;
   }
   
   
   function neighbour_y( ci, cj){
+      let y=0;
      //recorrer todos las filas de su columna
      for( let i=ci+1 ; i< rows; i++){  //por abajo
          if(checkboxes[  trans_index(i, cj)].checked  )  
-            this.y ++;
+            y ++;
         else {  break; } 
     }
      for( let i=ci-1 ; i>=0 ; i--){  //por arriba
          if(checkboxes[  trans_index(i, cj)].checked  )  
-            this.y ++;
+            y ++;
         else {  break; } 
-    } 
+    }   
+     console.log("Numero de vecinos de ("+ci+","+cj+") en vertical", y); 
+     return y;
   }
-  
+   
   
   function neighbour_dia( ci,cj){
-    
+    let neighbours_d= 0
     
     //recorrer diagonal principal (y si nro fila fuera cero?)
     let ci_new= ci ? ci-1 : -1;
@@ -120,6 +146,7 @@
             neighbours_d ++; j++;
           } else {  break; } 
     
+    
     }
     
     ci_new= (ci+1) < rows ? ci+1 : rows;
@@ -131,24 +158,31 @@
          }   
         else {  break; } 
     }
-    
+      console.log("Numero de vecinos de ("+ci+","+cj+") en diagonal",  neighbours_d ); 
+    return neighbours_d;
   }
 
 
    function neighbours( ci, cj ){
-   let nums= { x: 0,  y: 0, d:  0 };
-   nums.x= neighbour_x( ci, cj);
-   neighbour_y.call( nums,     ci, cj);
-   neighbour_dia( nums, ci, cj);
-   return  nums; 
+    
+    let v1= checkboxes[ trans_index( ci-1 ,  cj-1)].checked ? 1 : 0;
+    let v2= checkboxes[ trans_index( ci-1 ,  cj)].checked  ? 1 : 0;
+    let v3= checkboxes[ trans_index( ci-1 ,  cj+1)].checked ? 1 : 0;
+    let v4= checkboxes[ trans_index( ci ,  cj-1)].checked  ? 1 : 0;
+    let v5= checkboxes[ trans_index( ci ,  cj+1)].checked  ? 1 : 0;
+    let v6= checkboxes[ trans_index( ci+1 ,  cj-1)].checked  ? 1 : 0; 
+    let v7= checkboxes[ trans_index( ci+1 ,  cj)].checked  ? 1 : 0;
+    let v8= checkboxes[ trans_index( ci+1 ,  cj+1)].checked  ? 1 : 0;
+    
+    let finalsuma= v1+v2+v3+v4+v5+v6+v7+v8;
+    console.log("vecinos ", finalsuma)
+   return  finalsuma; 
   }
   
   
   function survive( i , j){
-    //    fila * columnas  +  col
-    
-    let surv= neighbours( i, j);
-    let sum= surv.x+ surv.y+surv.d;
+    //    fila * columnas  +  col 
+    let sum= neighbours( i, j);
     if( checkboxes[ trans_index( i, j)].checked && (sum < 2 || sum> 3) ) return false;
     else{
      if( checkboxes[ trans_index( i, j)].checked  &&  (sum == 3 || sum == 2)  )  return true;
@@ -177,6 +211,11 @@
     } }
   
   
+  function update_grid(){
+    checkboxes.forEach( function( curvalue, indice, arr){
+        checkboxes[indice].checked= survive();
+    })
+  }
  
   
   function GridOfLife(){
@@ -188,7 +227,7 @@
   
   
   GridOfLife();
-  
+  trans_index_r( 449);
   
  </script>
 </html>
