@@ -20,216 +20,127 @@
  </body>
  <script>
   
-  
-  const rows= 30, cols= 15;
-  var checkboxes= [];
-  
-  
-  
-  function gen_random_states(){
+
+var GameOfLife= 
+function(){
+    return {
+    rows: 30,
+    cols: 15,
+    checkboxes: [],
+    gen_random_states: function(){
  
  let ran=[];
- for(let a=0; a< rows*cols ; a++){
+ for(let a=0; a< this.rows* this.cols ; a++){
     ran.push(  Math.random() < 0.5) ;
  } return ran;
-  }
-  
-  
-  function set_random_states(  states){
+  },
+  set_random_states:   function  (  states){
     
-    checkboxes.forEach(function( val, indice){
+    this.checkboxes.forEach(function( val, indice){
         val.checked=  states[indice];
     });
-  }
-  
-  
-  
-  
-  function trans_index( i, j){  
+  },
+  trans_index: function ( i, j){  
     
-    if( j >= cols ||  i == rows) j= cols-1;
-    if( i >= rows) i= rows-1;
+    if( j >= this.cols ||  i == this.rows) j= this.cols-1;
+    if( i >= this.rows) i= this.rows-1;
     
-    return  i * cols  + j;  }
-      
-   
-   function trans_index_r( indice){  
-    let i=0;
-    let k=0
-    for(k=0; k< rows; k++){
+    return  i * this.cols  + j;  },
+
+   trans_index_r: function ( indice){  
+    let i=0; //numero de fila que corresponde al (indice)esimo elemento de la lista de checkboxes
+    let k=0;//contador para iterar el  numero de filas de la grilla de checkboxes
+    for(k=0; k< this.rows; k++){
          
-    let referencia=  trans_index( k,0) ; 
-    if( indice == referencia){     i= k;}
-    
-    if( indice >= referencia && indice <=  trans_index( k+1 ,0) ){ 
+    let referencia=  this.trans_index( k,0) ; //Se obtiene el indice (secuencial) del elemento a partir
+                                        //de proporcionar fila y columna
+                                        //Se obtiene el indice que corresponde a la fila k en la col. 0
+    /** Si el indice secuencial obtenido es igual al otro indice secuencial: el parametro (indice)
+    Se asume que la fila del elemento de indice "referencia" es k
+    Se asigna k a i***/
+    if( indice == referencia){    
+         i= k; break;//Encontrada la fila se interrumpe el bucle
+         }
+
+    /** El parametro de indice es mayor al de referencia y (menor o igual) al indice secuencial de la
+    siguiente fila en la columna cero 
+    El elemento se encuentra entre esos intervalos
+    **/
+    if( indice > referencia && indice  <=  this.trans_index( k+1 ,0) ){ 
+        i= k; break;}
         
-        i= k;}
-   
-  
     }
     
-   let j=  indice - i * cols;
+   let j=  indice - i * this.cols;//A partir de la fila y el valor de indice secuencial se halla el numero
+                            // de columna
     
     return  [i ,j ];
-    }
-   
-   
-  function neighbour_x( ci, cj){
-    let x=0; 
-     //recorrer todos las columnas de su fila
-      for( let j=cj+1 ; j< cols; j++){  //por la derecha
-         if(checkboxes[  trans_index(ci, j)].checked  ){ 
-              x ++; 
-         }  else {  break; } 
-    }
-     for( let j=cj-1 ; j>=0 ; j--){  //por la izquierda
-         if(checkboxes[  trans_index(ci, j)].checked  ) { 
-                x ++;  
-         }else {  break; } 
-    }
-    console.log("Numero de vecinos de ("+ci+","+cj+") en horizontal", x);
-     return x;
-  }
-  
-  
-  function neighbour_y( ci, cj){
-      let y=0;
-     //recorrer todos las filas de su columna
-     for( let i=ci+1 ; i< rows; i++){  //por abajo
-         if(checkboxes[  trans_index(i, cj)].checked  )  
-            y ++;
-        else {  break; } 
-    }
-     for( let i=ci-1 ; i>=0 ; i--){  //por arriba
-         if(checkboxes[  trans_index(i, cj)].checked  )  
-            y ++;
-        else {  break; } 
-    }   
-     console.log("Numero de vecinos de ("+ci+","+cj+") en vertical", y); 
-     return y;
-  }
-   
-  
-  function neighbour_dia( ci,cj){
-    let neighbours_d= 0
-    
-    //recorrer diagonal principal (y si nro fila fuera cero?)
-    let ci_new= ci ? ci-1 : -1;
-    let cj_new= cj ? cj-1 : -1;
-    let j= cj_new;
-      for( let i= ci_new ; i>=0 &&  j>=0; i--){  //por arriba
-          
-          if(checkboxes[  trans_index(i, j)].checked  ){
-           
-            neighbours_d ++; j--;    
-          } else {  break; } 
-    
-    }
-    
-    ci_new= (ci+1) < rows ? ci+1 : rows;
-    cj_new= (cj+1) < cols ? cj+1 : cols;
-     j=  cj_new;
-      for( let i= ci_new ; i< rows && j< cols ; i++){  //por abajo
-         if(checkboxes[  trans_index(i, j)].checked  ){
-             neighbours_d ++; j++; 
-         }   
-        else {  break; } 
-    }
+    },
 
-
-      //recorrer diagonal secundaria (y si nro fila la ultima?)
-    ci_new= (ci-1) < rows ? ci-1 : -1;
-    cj_new= (cj+1) < cols ? cj+1 : cols;
-    j= cj_new;
-      for( let i= ci_new ; i>=0 &&  j < cols  ; i--){  //por arriba
-          
-          if(checkboxes[  trans_index(i, j)].checked  ){
-            
-            neighbours_d ++; j++;
-          } else {  break; } 
+    neighbours: function ( ci, cj ){
     
-    
-    }
-    
-    ci_new= (ci+1) < rows ? ci+1 : rows;
-    cj_new= (cj-1) < cols ? cj-1 : -1;
-     j=  cj_new;
-      for( let i= ci_new ; i< rows && j>= 0; i++){  //por abajo
-         if(checkboxes[  trans_index(i, j)].checked  ){
-             neighbours_d ++; j--; 
-         }   
-        else {  break; } 
-    }
-      console.log("Numero de vecinos de ("+ci+","+cj+") en diagonal",  neighbours_d ); 
-    return neighbours_d;
-  }
-
-
-   function neighbours( ci, cj ){
-    
-    let v1= checkboxes[ trans_index( ci-1 ,  cj-1)].checked ? 1 : 0;
-    let v2= checkboxes[ trans_index( ci-1 ,  cj)].checked  ? 1 : 0;
-    let v3= checkboxes[ trans_index( ci-1 ,  cj+1)].checked ? 1 : 0;
-    let v4= checkboxes[ trans_index( ci ,  cj-1)].checked  ? 1 : 0;
-    let v5= checkboxes[ trans_index( ci ,  cj+1)].checked  ? 1 : 0;
-    let v6= checkboxes[ trans_index( ci+1 ,  cj-1)].checked  ? 1 : 0; 
-    let v7= checkboxes[ trans_index( ci+1 ,  cj)].checked  ? 1 : 0;
-    let v8= checkboxes[ trans_index( ci+1 ,  cj+1)].checked  ? 1 : 0;
+    let v1=  this.checkboxes[ this.trans_index( ci-1 ,  cj-1)].checked ? 1 : 0;
+    let v2=  this.checkboxes[ this.trans_index( ci-1 ,  cj)].checked  ? 1 : 0;
+    let v3=  this.checkboxes[ this.trans_index( ci-1 ,  cj+1)].checked ? 1 : 0;
+    let v4=  this.checkboxes[ this.trans_index( ci ,  cj-1)].checked  ? 1 : 0;
+    let v5=  this.checkboxes[ this.trans_index( ci ,  cj+1)].checked  ? 1 : 0;
+    let v6=  this.checkboxes[ this.trans_index( ci+1 ,  cj-1)].checked  ? 1 : 0; 
+    let v7=  this.checkboxes[ this.trans_index( ci+1 ,  cj)].checked  ? 1 : 0;
+    let v8=  this.checkboxes[ this.trans_index( ci+1 ,  cj+1)].checked  ? 1 : 0;
     
     let finalsuma= v1+v2+v3+v4+v5+v6+v7+v8;
     console.log("vecinos ", finalsuma)
    return  finalsuma; 
-  }
-  
-  
-  function survive( i , j){
+  },
+  survive: function ( i , j){
     //    fila * columnas  +  col 
-    let sum= neighbours( i, j);
-    if( checkboxes[ trans_index( i, j)].checked && (sum < 2 || sum> 3) ) return false;
+    let sum= this.neighbours( i, j);
+    if( this.checkboxes[  this.trans_index( i, j)].checked && (sum < 2 || sum> 3) ) return false;
     else{
-     if( checkboxes[ trans_index( i, j)].checked  &&  (sum == 3 || sum == 2)  )  return true;
+     if(  this.checkboxes[ this.trans_index( i, j)].checked  &&  (sum == 3 || sum == 2)  )  return true;
     else{
-        if( !checkboxes[ trans_index( i, j)].checked  && sum== 3 ) return true;
+        if( !this.checkboxes[ this.trans_index( i, j)].checked  && sum== 3 ) return true;
     }
     
        
     }
-  }
-  
-  
-
-  function generate_grid(){
-    let grilla= document.getElementById("grid");
+  },
+  generate_grid: function ( gridname){
+    let grilla= document.getElementById( gridname );
     
-    for(let i=0; i< rows; i++){
-        for(let j=0; j< cols; j++){
+    for(let i=0; i<  this.rows; i++){
+        for(let j=0; j< this.cols; j++){
             let checkbox= document.createElement("input");  checkbox.type="checkbox";
             //agregar a la lista
-            checkboxes.push(checkbox);
+            this.checkboxes.push(checkbox);
             
             grilla.appendChild(  checkbox );
         }
     grilla.appendChild( document.createElement("br")); 
-    } }
-  
-  
-  function update_grid(){
-    checkboxes.forEach( function( curvalue, indice, arr){
-        checkboxes[indice].checked= survive();
+    } },
+    update_grid: function (){
+    this.checkboxes.forEach( function( curvalue, indice, arr){
+        this.checkboxes[indice].checked= survive();
     })
-  }
+  },
+
+
+
+};
+};
+  
+   
  
   
   function GridOfLife(){
-    
-  generate_grid();
-  set_random_states(  gen_random_states());
-  console.log( "5,7 ", survive(5,7));
+ var game=GameOfLife();
+ game.generate_grid( "grid");
+game.set_random_states(game.gen_random_states() ); 
+  console.log( "5,7 ", game.survive(5,7));
   }
   
   
-  GridOfLife();
-  trans_index_r( 449);
+  GridOfLife(); 
   
  </script>
-</html>
+</html>s
