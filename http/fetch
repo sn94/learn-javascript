@@ -1,0 +1,34 @@
+/*
+ * Esto es un borrador de JavaScript.
+ *
+ * Escriba algo de JavaScript, después haga clic derecho o elija del menú Acción:
+ * 1. Ejecutar para evaluar el texto seleccionado (Ctrl+R),
+ * 2. Inspeccionar para mostrar el inspector de objetos con el resultado (Ctrl+I), o,
+ * 3. Mostrar para insertar el resultado en un comentario después de la selección. (Ctrl+L)
+ */
+
+
+var ob= fetch('http://localhost/json_files/sandalias.txt').then(
+ respuesta=> {
+  return  Promise.resolve(respuesta);
+ }
+)
+  .then(function(response) {
+    console.log( response.status, response.responseText);
+   let jsonobj= response.json(); //esto es una promesa
+                                //cuyo response es el objeto json, el cual
+                                //se manipulara directamente por el siguiente
+                                //metodo en la cadena
+ 
+   return jsonobj;
+  }).
+then(
+  function(myJson) {
+  
+   let ne= myJson.slice(0,5);
+  for( let ar of ne ){
+     console.log( ar) ;
+  }
+  
+  });
+  

@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html" />
+	<meta name="author" content="gencyolcu" />
+
+    <title>Animando</title>
+    <script src="jquery-2.1.4.js" type="text/javascript" ></script>
+    <style>
+        div{
+            min-height: 100px;
+            min-width: 100px;
+        }
+        .bg-red{
+            background-color: red;
+            color: wheat;
+        }
+        .bg-green{
+            background-color: green;
+            color: #333
+        }
+        .bg-blue{
+            background-color: blue;
+            color:beige;
+        }
+        .b-radius{
+            border-radius: 30px 30px;
+            border-style: solid;
+            border-color: black;
+            border-width: 3px;
+        }
+    </style>
+</head>
+
+<body>
+</body>
+<script>
+ //( $ ) &&  console.log("Works");
+
+
+function Rojos(){
+    let div= $("<div></div>");
+ div.addClass("bg-red").addClass("b-radius");
+ return div;
+}
+
+function Amarillos(){
+    let div= $("<div></div>");
+ div.addClass("bg-yellow").addClass("b-radius");
+ return div;
+}
+
+function Azules(){
+    let div= $("<div></div>");
+ div.addClass("bg-blue").addClass("b-radius");
+ return div;
+}
+
+function Mezcla( r, g, b){
+    let div= $("<div></div>");
+ div.addClass("b-radius");
+ div.css("background-color", `rgb(${r},${g},${b})`  );
+ return div;
+}
+
+function RGB(){ 
+    for(let R=0; R<= 5 ; R++){
+        for(let G=0; G<= 5 ; G++){
+            for(let B=0; B<= 5 ; B++){
+                $(`<h3>${R} , ${G} , ${B}</h3>`).appendTo("body");
+            Mezcla( R, G, B ).appendTo(  "body" );
+            }  
+        }
+    }
+}
+
+
+RGB();
+
+</script>
+</html>

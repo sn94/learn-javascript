@@ -1,0 +1,55 @@
+<html>
+ 
+<head>
+        <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.7.0-alpha.2/umd/react.developme
+nt.js" crossorigin></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.7.0-alpha.2/umd/react-dom.p
+roduction.min.js" crossorigin ></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+ 
+    <div id="root" style="width:200px; min-height: 100px;">
+
+    </div>
+
+</body>
+ <script type="text/javascript">
+  class Foo {
+  constructor(name) {
+    this.name = name;
+  }
+
+  bar() {
+     return this.name;
+    }
+  
+    foo= "";
+}
+/*
+foobar = () => {
+      return this.name; };
+      */
+var f = new Foo("jack");
+f.bar(); // jack
+//f.foobar(); // jack
+
+// <see images below>
+console.dir(Foo); 
+console.dir(f);
+
+</script>
+<script type="text/babel">
+
+
+const Button = () => {
+return <button>Click me!</button>
+}
+
+
+ReactDOM.render(<Button />, document.getElementById('root'))
+
+
+</script>
+</html>

@@ -1,0 +1,11 @@
+
+
+var pProductos= new Promise( (ok, fail)=>{
+ setTimeout(()=> console.log("x"), 2000);
+  ok(2);
+}).then( (re)=>{
+  console.log( re);
+}
+);
+
+ 

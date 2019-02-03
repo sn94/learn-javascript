@@ -1,0 +1,83 @@
+/*
+ * Esto es un borrador de JavaScript.
+ *
+ * Escriba algo de JavaScript, después haga clic derecho o elija del menú Acción:
+ * 1. Ejecutar para evaluar el texto seleccionado (Ctrl+R),
+ * 2. Inspeccionar para mostrar el inspector de objetos con el resultado (Ctrl+I), o,
+ * 3. Mostrar para insertar el resultado en un comentario después de la selección. (Ctrl+L)
+ */
+
+/**
+Recoger datos de producto y de su categoria
+
+Producto -Codigo
+Descripcion
+Precio
+Categoria desc.
+***/
+
+function get_json( url){
+let LikeFetchFunc= new Promise( (resolve,reject)=>{
+  let xhr= new XMLHttpRequest();
+xhr.addEventListener(  "load",  function( e){
+  if( this.status >= 200  && this.status <300)
+    resolve( this.responseText );
+  else
+    reject(new Error("Failed request"));
+});
+xhr.open( "get", url, true );
+xhr.send(); 
+  
+});
+
+  return LikeFetchFunc;
+}
+
+
+function recoger_producto( tx){ 
+                let prodJson=   JSON.parse( tx )[2].data; 
+                return prodJson; 
+
+      }
+ 
+
+//categoria-promesa
+
+function recoger_categoria( prods){
+  let xhr_cat= get_json( "http://localhost/json_files/menu/categories.json" );
+  let products= prods;
+  xhr_cat.then( (tx)=>{
+     let cateJson=   JSON.parse( tx )[2].data; 
+  
+    products.map( (arg)=>{
+         let categoryDes= cateJson.filter( ( ar )=> arg.category_id === ar.id  )[0].name;
+          return arg.category= categoryDes;//un objeto es mutable dentro de map
+                          });  
+    
+  });
+   return products;
+                  
+}
+
+
+function mostrar_error(er){
+              console.error( er );
+  
+}
+
+
+var showData= (ar)=>{
+  
+  console.table( ar);
+};
+
+
+//obtener product data
+get_json(  "http://localhost/json_files/menu/productos.json" ).
+then( recoger_producto ).
+then( recoger_categoria).
+then( showData ).
+catch( mostrar_error );
+
+
+
